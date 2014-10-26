@@ -1,0 +1,29 @@
+  select 
+         PWINotMapping.ExternalPatientId, PEKB.PatientId, PAB.FirstName, PAB.LastName, PAB.DoB 
+  from 
+       (
+       select 
+            PWIFULL.ExternalPatientId 
+       from
+            `test`.Healtheast_Initiatives_20130916 as PWIFULL 
+       left join (select
+                      PWI.ExternalPatientId, 
+                      PI.PatientId 
+                  from 
+                      `test`.Healtheast_Initiatives_20130916 as PWI 
+                  inner join 
+                      `wellcentive_healtheast`.PatientExternalKey as PEK 
+                      on PWI.ExternalPatientId = PEK.ExternalPatientId 
+                  inner join
+                      `wellcentive_healtheast`.PatientInitiative as PI 
+                      on PEK.PatientId = PI.PatientId 
+                  group by
+                      PEK.ExternalPatientId) as PIExt_Join_PIPid 
+           on PWIFULL.ExternalPatientId = PIExt_Join_PIPid.ExternalPatientId 
+           where PIExt_Join_PIPid.PatientId is null) as PWINotMapping 
+      left join `wellcentive_healtheast`.PatientExternalKey as PEKB 
+           on PWINotMapping.ExternalPatientId = PEKB.ExternalPatientId 
+      left join `wellcentive_healtheast`.Patient as PAB 
+           on PEKB.PatientId = PAB.PatientId;
+
+

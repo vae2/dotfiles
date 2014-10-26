@@ -11,12 +11,26 @@ startup-engineering-class subdirectory.
 
 Usage
 -----
+```sh
+cd $HOME
+[ ! -d "git/" ] && mkdir git
+cd git && git clone https://github.com/vae2/dotfiles.git
+cd $HOME
+ln -sb git/dotfiles/dot-profile .profile
+ln -sb git/dotfiles/dot-bashrc .bashrc
+ln -sb git/dotfiles/dot-dir_colors .dir_colors
+ln -sb git/dotfiles/dot-emacs .emacs
+ln -sb git/dotfiles/dot-emacs-dot-d .emacs.d
+```
 
 Files/Content
 -------------
+* dot-profile
+  * [Attempt to make this compatible across Ubuntu/OSX](http://dghubble.com/blog/posts/.bashprofile-.profile-and-.bashrc-conventions/)
+* dot-bashrc
+* dot-dircolors
 * startup-engineering-class/
-  * Test 123
-* Next file
+  * Contains files from Coursera's Startup Engineering course
 
 Notes from startup engineering class
 ------------------------------------
