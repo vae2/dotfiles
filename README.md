@@ -1,5 +1,25 @@
-dotfiles.git
-============
+dotfiles.git : Mac OS X Development Environment Setup
+=====================================================
+Purpose of this project
+-----------------------
+This repo is used to track the evolution of the numerous "dotfiles" that are
+used to tweak and customize my dev environment on OS X (currently running
+Mavericks). I'm assuming the use of iTerm2 and the bash shell. My project
+config and repo was adapted from the coursera startup engineering class, and
+the contents of those original files are contained in the
+startup-engineering-class subdirectory.
+
+Usage
+-----
+
+Files/Content
+-------------
+* startup-engineering-class/
+  * Test 123
+* Next file
+
+Notes from startup engineering class
+------------------------------------
 Clone and run this on a new EC2 instance running Ubuntu 12.04.2 LTS to
 configure your `bash` and `emacs` development environment as follows:
 
