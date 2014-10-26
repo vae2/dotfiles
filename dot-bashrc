@@ -1,0 +1,71 @@
+
+# ... Path setup
+
+# ...,,, MacPorts Installer addition on 2013-01-07_at_14:28:21: adding an
+#  appropriate PATH variable for use with MacPorts.
+#
+# Note: MacPorts may attempt to put this in .profile or some other place, which
+# may require manual edit to be compatible with this script export
+PATH=$HOME/bin:/opt/local/bin:/opt/local/sbin:$PATH 
+
+# ...,,, Place GNU version of coreutils in the path before the BSD versions
+# Source: https://trac.macports.org/browser/trunk/dports/sysutils/coreutils/Portfile
+[ -d "/opt/local/libexec/gnubin" ] && export PATH="/opt/local/libexec/gnubin:${PATH}"
+
+# ...,,, Setting PATH for Python 2.7
+# Source: https://www.python.org/downloads/
+export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
+
+# Setting path for mysql
+# Source: http://www.oracle.com/us/products/mysql/mysqlcommunityserver/overview/index.html
+export PATH="/usr/local/mysql/bin:${PATH}"
+
+# ... Set Mac OSX terminal to have better coloring scheme
+# Source: http://hocuspokus.net/2008/01/a-better-ls-for-mac-os-x/
+if [ "$TERM" != "dumb" ]; then
+    eval $(dircolors ~/.dir_colors)
+fi
+
+# ... Aliases
+alias ls='ls --color=auto'
+alias l.='ls -d .* --color=auto'
+alias ll='ls -lh --color=auto'
+alias pd='pushd'
+alias pyjson='python -mjson.tool'
+alias grep='grep --color=auto'
+alias git='hub'
+
+# ... Bash prompt with directory stack and git branch name/status (if
+#  applicable) displayed
+# Source: https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
+source ~/.git-prompt.sh
+GIT_PS1_SHOWDIRTYSTATE="Yes"
+GIT_PS1_SHOWCOLORHINTS="Yes"
+GIT_PS1_SHOWSTASHSTATE="Yes"
+GIT_PS1_SHOWUNTRACKEDFILES="Yes"
+
+PROMPT_COMMAND='__git_ps1 "\[\e[1;31m\][\$(dirs)]\[\e[0m\]\n\u@\h" "\\\$ "'
+
+# ...,,, Old way, without git info displayed
+# export PS1="\[\e[1;31m\][\$(dirs)]\[\e[0m\]\n\u@\h \$ "
+
+# ... Set Emacs.app (GNU Emacs for OS X binary) to be default emacs program
+# Source: http://emacsformacosx.com/
+alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs'
+alias emacsclient='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient'
+EDITOR=/Applications/Emacs.app/Contents/MacOS/Emacs
+
+# Environment variable for mysql lib dyn loading
+export DYLD_LIBRARY_PATH="/usr/local/mysql/lib"
+
+# virtualenvwrapper setup
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Projects
+export VIRTUALENVWRAPPER_SCRIPT=/Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper.sh
+source /Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper_lazy.sh
+
+# set JAVA_HOME
+export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
+
+# Maven build
+export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=256m"
