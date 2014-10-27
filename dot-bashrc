@@ -45,7 +45,18 @@ GIT_PS1_SHOWCOLORHINTS="Yes"
 GIT_PS1_SHOWSTASHSTATE="Yes"
 GIT_PS1_SHOWUNTRACKEDFILES="Yes"
 
-PROMPT_COMMAND='__git_ps1 "\[\e[1;31m\][\$(dirs)]\[\e[0m\]\n\u@\h" "\\\$ "'
+# ...,,, Create a function so that I can show clearly if we're operating in a
+# virtualenv
+function __show_virtualenv_name {
+    venv_name=""
+    if [ -n "$VIRTUAL_ENV" ]
+    then
+        venv_name="|""$(basename $VIRTUAL_ENV)""|"
+    fi
+    echo "$venv_name"
+}
+
+PROMPT_COMMAND='__git_ps1 "\[\e[1;31m\][\$(dirs)]\[\e[0m\]\n\u@\h \$(__show_virtualenv_name)" "\\\$ "'
 
 # ...,,, Old way, without git info displayed
 # export PS1="\[\e[1;31m\][\$(dirs)]\[\e[0m\]\n\u@\h \$ "
