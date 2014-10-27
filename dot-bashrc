@@ -34,6 +34,7 @@ alias pd='pushd'
 alias pyjson='python -mjson.tool'
 alias grep='grep --color=auto'
 alias git='hub'
+alias em='emacs -nw'
 
 # ... Bash prompt with directory stack and git branch name/status (if
 #  applicable) displayed
