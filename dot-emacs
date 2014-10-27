@@ -1,6 +1,6 @@
 ;; Add customizations to emacs environment that are synced in dropbox
 ;; under ~org/ directory
-(load "~/org/orgconfig.el")
+(load "~/.emacs.d/orgconfig.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
