@@ -333,9 +333,19 @@ is put in place to encourage good programming practice."
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
-(global-set-key (kbd "C-0") 'org-agenda)
-(global-set-key (kbd "C-8") 'org-capture)
-(global-set-key (kbd "C-9") 'org-refile)
+
+(global-set-key "8" (quote org-capture))
+(global-set-key "9" (quote org-refile))
+(global-set-key "0" (quote org-agenda))
+(global-set-key "8" (quote org-capture))
+(global-set-key "9" (quote org-refile))
+
+;; ... Below only works for X windows, not in terminal
+;; (global-set-key (kbd "C-8") 'org-capture)
+;; (global-set-key (kbd "C-9") 'org-refile)
+;; (global-set-key (kbd "C-0") 'org-agenda)
+;; (global-set-key (kbd "C-8") 'org-capture)
+;; (global-set-key (kbd "C-9") 'org-refile)
 
 ;; Org-babel set up
 (org-babel-do-load-languages
