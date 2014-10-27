@@ -4,10 +4,10 @@ Purpose of this project
 -----------------------
 This repo is used to track the evolution of the numerous "dotfiles" that are
 used to tweak and customize my dev environment on OS X (currently running
-Mavericks). I'm assuming the use of iTerm2 and the bash shell. My project
-config and repo was adapted from the coursera startup engineering class, and
-the contents of those original files are contained in the
-startup-engineering-class subdirectory.
+Mavericks). I'm assuming the use of iTerm2 (not required) and the bash shell
+(required). My project config and repo was adapted from the coursera startup
+engineering class, and the contents of those original files are contained in
+the startup-engineering-class subdirectory.
 
 Usage
 -----
@@ -28,7 +28,14 @@ Files/Content
 * dot-profile
   * [Attempt to make this compatible across Ubuntu/OSX](http://dghubble.com/blog/posts/.bashprofile-.profile-and-.bashrc-conventions/)
 * dot-bashrc
+  * The meat of the config settings for bash
 * dot-dircolors
+  * [here's why and how](http://hocuspokus.net/2008/01/a-better-ls-for-mac-os-x/)
+* dot-emacs
+  * Emacs config settings and customizations (there are good amount of these)
+* dot-emacs-dot-d
+  * Contains emacs customizations in file orgconfig.el (todo: split this into multiple configs per topic for better organization)
+  * Directory to store 3rd party lisp extensions for emacs (e.g. python-mode.el)
 * startup-engineering-class/
   * Contains files from Coursera's Startup Engineering course
 
