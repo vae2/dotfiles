@@ -14,6 +14,7 @@
 
 ;; Local location for external lisp files
 (add-to-list 'load-path "~/.emacs.d/lisp")
+(add-to-list 'load-path "~/.emacs.d")
 
 ;; Modify default tab behavior to use 4 spaces
 ;; ... Note, in sql mode i'm still not completely happe with the behavior
@@ -79,7 +80,7 @@
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (setq ido-create-new-buffer 'always)
-(setq ido-file-extensions-order '(".org" ".csv" ".txt" ".json" ".py" ".R" ".xml" ".el"))
+(setq ido-file-extensions-order '(".org" ".csv" ".txt" ".md" ".json" ".py" ".R" ".xml" ".el"))
 (ido-mode t)
 
 ;; ... AutoComplete mode
@@ -506,3 +507,11 @@ is put in place to encourage good programming practice."
 ;; More logging
 (setq org-log-done (quote time))
 (setq org-log-into-drawer t)
+
+;; ... Support for markdown 
+;; Reference: http://jblevins.org/projects/markdown-mode/
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
