@@ -5,8 +5,6 @@
 ;; Created On: Wed Jul 27 13:56:43 EDT 2011
 ;;
  
-;; Set color theme
-(load-theme 'deeper-blue t)
 
 ;; Org mode install via ELPA
 (require 'package)
@@ -14,6 +12,7 @@
 
 ;; Local location for external lisp files
 (add-to-list 'load-path "~/.emacs.d/lisp")
+(add-to-list 'load-path "~/.emacs.d/themes")
 (add-to-list 'load-path "~/.emacs.d")
 
 ;; Modify default tab behavior to use 4 spaces
@@ -25,6 +24,24 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120))))
+
+;; Set color theme
+;;
+
+;; load solarized color theme
+;; Sources:
+;;     http://www.nongnu.org/color-theme/ (color-theme.el)
+;;      Installation: http://www.emacswiki.org/cgi-bin/wiki/ColorTheme
+;;     https://github.com/altercation/solarized.git (solarize)
+
+(require 'color-theme)
+(require 'color-theme-solarized)
+(color-theme-initialize)
+
+;; set dark theme
+(color-theme-solarized-dark)
+;; set light theme
+;; (color-theme-solarized-light)
 
 ;; sql-mode customizations
 ;;    Default highlighting is mysql keywords
