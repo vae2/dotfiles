@@ -22,9 +22,15 @@ export PATH="/usr/local/mysql/bin:${PATH}"
 
 # ... Set Mac OSX terminal to have better coloring scheme
 # Source: http://hocuspokus.net/2008/01/a-better-ls-for-mac-os-x/
-if [ "$TERM" != "dumb" ]; then
-    eval $(dircolors ~/.dir_colors)
-fi
+# if [ "$TERM" != "dumb" ]; then
+#     eval $(dircolors ~/.dir_colors)
+# fi
+# No longer using the above dir-colors method for coloring scheme. Using iterm2
+# with solarize color profile. 
+# Source: git clone git://github.com/altercation/solarized.git
+
+# Note that, this requires unchecking a default preference in your iTerm2
+# profile to get it to work: https://github.com/altercation/solarized/issues/1
 
 # ... Aliases
 alias ls='ls --color=auto'
