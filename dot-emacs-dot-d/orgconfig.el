@@ -13,7 +13,6 @@
 ;; Local location for external lisp files
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (add-to-list 'load-path "~/.emacs.d/themes")
-(add-to-list 'load-path "~/.emacs.d")
 
 ;; Modify default tab behavior to use 4 spaces
 ;; ... Note, in sql mode i'm still not completely happe with the behavior
