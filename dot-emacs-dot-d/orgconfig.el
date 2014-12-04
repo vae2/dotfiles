@@ -122,6 +122,7 @@
 (ac-config-default)
 
 (setq ac-use-quick-help t)
+(setq ac-use-fuzzy t)
 (define-key ac-mode-map (kbd "C-M-k") 'auto-complete)
 (ac-flyspell-workaround)
 
