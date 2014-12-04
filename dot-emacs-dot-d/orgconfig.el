@@ -6,23 +6,19 @@
 ;;
  
 
-;; Org mode install via ELPA
+;; Repeat after me: Package managers in Emacs 24 are your friend
+;; Ref:
+;;   http://ergoemacs.org/emacs/emacs_package_system.html
+;;   http://www.gnu.org/software/emacs/manual/html_node/emacs/Package-Installation.html
 (require 'package)
+(package-initialize)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+(setq package-enable-at-startup nil)
 
 ;; Local location for external lisp files
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (add-to-list 'load-path "~/.emacs.d/themes")
-
-;; Modify default tab behavior to use 4 spaces
-;; ... Note, in sql mode i'm still not completely happe with the behavior
-(setq tab-width 4)
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120))))
 
 ;; Set color theme
 ;;
@@ -41,6 +37,27 @@
 (color-theme-solarized-dark)
 ;; set light theme
 ;; (color-theme-solarized-light)
+
+;; Web development setup
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+
+;; Modify default tab behavior to use 4 spaces
+;; ... Note, in sql mode i'm still not completely happe with the behavior
+(setq tab-width 4)
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120))))
 
 ;; sql-mode customizations
 ;;    Default highlighting is mysql keywords
@@ -96,7 +113,7 @@
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (setq ido-create-new-buffer 'always)
-(setq ido-file-extensions-order '(".org" ".csv" ".txt" ".md" ".json" ".py" ".R" ".xml" ".el"))
+(setq ido-file-extensions-order '(".org" ".csv" ".txt" ".md" ".json" ".py" ".R" ".html" ".xml" ".el"))
 (ido-mode t)
 
 ;; ... AutoComplete mode
@@ -531,3 +548,4 @@ is put in place to encourage good programming practice."
 (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
