@@ -4,7 +4,6 @@
 ;; Vincent A. Emanuele II
 ;; Created On: Wed Jul 27 13:56:43 EDT 2011
 ;;
- 
 
 ;; Repeat after me: Package managers in Emacs 24 are your friend
 ;; Ref:
@@ -117,9 +116,9 @@
 (ido-mode t)
 
 ;; ... AutoComplete mode
-(add-to-list 'load-path "~/.emacs.d/lisp/auto-complete")
+;; (add-to-list 'load-path "~/.emacs.d/lisp/auto-complete") 
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/lisp/auto-complete/ac-dict")
+;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/lisp/auto-complete/ac-dict")
 (ac-config-default)
 
 (setq ac-use-quick-help t)
