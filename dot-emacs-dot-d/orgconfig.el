@@ -48,6 +48,36 @@
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
+;; Autocompletion setup
+;; ... AutoComplete mode
+;; (add-to-list 'load-path "~/.emacs.d/lisp/auto-complete") 
+(require 'ac-html)
+(require 'auto-complete-config)
+;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/lisp/auto-complete/ac-dict")
+(ac-config-default)
+
+(setq ac-use-quick-help t)
+(setq ac-use-fuzzy t)
+(define-key ac-mode-map (kbd "C-M-k") 'auto-complete)
+(ac-flyspell-workaround)
+
+;; ... Web Mode Autocomplete Setup
+;; (setq web-mode-ac-sources-alist
+;;   '(("css" . (ac-source-css-property))
+;;     ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+
+(setq web-mode-ac-sources-alist
+      '( ("css" . (ac-source-css-property))))
+;;     ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+
+(add-to-list 'ac-sources 'ac-source-html-tag)
+(add-to-list 'ac-sources 'ac-source-html-attribute)
+(add-to-list 'web-mode-ac-sources-alist
+  '("html" . (ac-source-html-tag
+	      ac-source-html-attribute
+	      ac-source-words-in-buffer
+	      ac-source-abbrev)))
+
 ;; Modify default tab behavior to use 4 spaces
 ;; ... Note, in sql mode i'm still not completely happe with the behavior
 (setq tab-width 4)
@@ -114,17 +144,6 @@
 (setq ido-create-new-buffer 'always)
 (setq ido-file-extensions-order '(".org" ".csv" ".txt" ".md" ".json" ".py" ".R" ".html" ".xml" ".el"))
 (ido-mode t)
-
-;; ... AutoComplete mode
-;; (add-to-list 'load-path "~/.emacs.d/lisp/auto-complete") 
-(require 'auto-complete-config)
-;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/lisp/auto-complete/ac-dict")
-(ac-config-default)
-
-(setq ac-use-quick-help t)
-(setq ac-use-fuzzy t)
-(define-key ac-mode-map (kbd "C-M-k") 'auto-complete)
-(ac-flyspell-workaround)
 
 ;; ...,,, Fill Column Indicator
 (require 'fill-column-indicator)
