@@ -11,17 +11,56 @@ the startup-engineering-class subdirectory.
 
 Usage
 -----
+1) Install the solarized color theme, which makes life on the command-line
+(and in your favorite editor) infinitely better.
+```sh
+cd $HOME
+[ ! -d "git/" ] && mkdir git
+cd git && git clone git://github.com/altercation/solarized.git
+```
+Go into the solarized project iTerm2 subdirectory, and follow the instructions
+for importing the solarized color theme into iTerm2.
+
+For the Emacs solarized theme, I've already included it in the
+dotfiles project (below). Theoretically, it would be good to check
+from time-to-time for updates from the solarized author.
+
+2) Git/bash prompt integration setup. This grabs a helper bash script from the
+git project that lets my setup my bash prompt to integrate with git. (note
+below that I'm assuming Macports GNU port of the coreutils is installed).
+```sh
+cd git && git clone https://github.com/git/git.git
+cd $HOME
+/opt/local/bin/gln -sb ~/git/git/contrib/completion/git-prompt.sh ~/.git-prompt.sh
+```
+The necessary prompt/import commands are located in the dot-bashrc file (below)
+
+3) Pull and setup Dotfile/config file customizations. I clone my own
+dotfiles/config files from github:
 ```sh
 cd $HOME
 [ ! -d "git/" ] && mkdir git
 cd git && git clone https://github.com/vae2/dotfiles.git
 cd $HOME
-ln -sb git/dotfiles/dot-profile .profile
-ln -sb git/dotfiles/dot-bashrc .bashrc
-ln -sb git/dotfiles/dot-dir_colors .dir_colors
-ln -sb git/dotfiles/dot-emacs .emacs
-ln -sb git/dotfiles/dot-emacs-dot-d .emacs.d
+/opt/local/bin/gln -sb git/dotfiles/dot-profile .profile
+/opt/local/bin/gln -sb git/dotfiles/dot-bashrc .bashrc
+/opt/local/bin/gln -sb git/dotfiles/dot-emacs .emacs
+/opt/local/bin/gln -sb git/dotfiles/dot-emacs-dot-d .emacs.d
 ```
+
+4) Upgrade bash shell version. Mac OSX uses a horribly outdated bash shell
+(3.2 as of Yosemite). There is a bug in bash 3.x that breaks the command line
+use of Rscript (and
+[Rio](https://github.com/jeroenjanssens/data-science-at-the-command-line/blob/master/tools/Rio)).
+
+ The best way around this is to upgrade bash using Macports and the following
+ steps.
+```sh
+sudo port install bash
+```
+Then, I follow
+ [these steps](http://stackoverflow.com/questions/791227/unable-to-update-my-bash-in-mac-by-macports),
+ restart my terminal window, and Voila!
 
 Files/Content
 -------------
@@ -31,6 +70,7 @@ Files/Content
   * The meat of the config settings for bash
 * dot-dircolors
   * [here's why and how](http://hocuspokus.net/2008/01/a-better-ls-for-mac-os-x/)
+  * Note, I no longer use this, replaced with solarized
 * dot-emacs
   * Emacs config settings and customizations (there are good amount of these)
 * dot-emacs-dot-d
@@ -39,8 +79,8 @@ Files/Content
 * startup-engineering-class/
   * Contains files from Coursera's Startup Engineering course
 
-Notes from startup engineering class
-------------------------------------
+Notes from startup engineering class (deprecated)
+-------------------------------------------------
 Clone and run this on a new EC2 instance running Ubuntu 12.04.2 LTS to
 configure your `bash` and `emacs` development environment as follows:
 
