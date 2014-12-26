@@ -83,7 +83,13 @@ export VIRTUALENVWRAPPER_SCRIPT=/Library/Frameworks/Python.framework/Versions/2.
 source /Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper_lazy.sh
 
 # set JAVA_HOME
-export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
+## Note, if java 1.7 is not installed, will fail 'silently'
+if /usr/libexec/java_home -v 1.7 2> /dev/null; then
+   export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
+else
+   # Do nothing, no java 1.7
+   :
+fi
 
 # Maven build
 export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=256m"
