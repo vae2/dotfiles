@@ -84,7 +84,7 @@ source /Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper_l
 
 # set JAVA_HOME
 ## Note, if java 1.7 is not installed, will fail 'silently'
-if /usr/libexec/java_home -v 1.7 2> /dev/null; then
+if /usr/libexec/java_home -v 1.7 >> /dev/null 2>&1; then
    export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
 else
    # Do nothing, no java 1.7
