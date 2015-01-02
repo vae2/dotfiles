@@ -15,6 +15,15 @@
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (setq package-enable-at-startup nil)
 
+;; Startup edit-server for chrome-emacs integration
+(when (and (daemonp) (locate-library "edit-server"))
+(require 'edit-server)
+(edit-server-start))
+
+;; Adding Confluence integration/settings
+(require 'confluence)
+(setq confluence-url "https://docs.wellcentive.com/rpc/xmlrpc")
+
 ;; Local location for external lisp files
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (add-to-list 'load-path "~/.emacs.d/themes")
