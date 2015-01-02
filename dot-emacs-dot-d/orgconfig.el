@@ -21,8 +21,20 @@
 (edit-server-start))
 
 ;; Adding Confluence integration/settings
+;; ... http://sourceforge.net/p/confluence-el/wiki/Home/
 (require 'confluence)
 (setq confluence-url "https://docs.wellcentive.com/rpc/xmlrpc")
+(confluence-default-space-alist (list (cons confluence-url "Data Science")))
+
+;; (autoload 'confluence-get-page "confluence" nil t)
+;; (eval-after-load "confluence"
+;;   '(progn
+;;      (require 'longlines)
+;;      (progn
+;;        (add-hook 'confluence-mode-hook 'longlines-mode)
+;;        (add-hook 'confluence-before-save-hook 'longlines-before-revert-hook)
+;;        (add-hook 'confluence-before-revert-hook 'longlines-before-revert-hook)
+;;        (add-hook 'confluence-mode-hook '(lambda () (local-set-key "\C-j" 'confluence-newline-and-indent))))))
 
 ;; Local location for external lisp files
 (add-to-list 'load-path "~/.emacs.d/lisp")
