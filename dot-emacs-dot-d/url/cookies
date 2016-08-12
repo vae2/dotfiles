@@ -2,7 +2,10 @@
 ;; Automatically generated file!!! DO NOT EDIT!!!
 
 (setq url-cookie-storage
- 'nil)
+ '((".google.com"
+  [url-cookie "NID" "76=nMMvfvk6k9pPNQXTyQrTGak-MGlaGoaSQZjAW9gOnOCGxmKLVdQnuiBdakpXpBreTlqhJDS6rHQynXsmbQP6gBFzd5AXXPKND4KWs9CNgjXEQFCclXqAPeBIbYQpbyFi" "11-Aug-2016 02:05:58.00 GMT" "/" ".google.com" nil]
+  [url-cookie "HttpOnly" nil "11-Aug-2016 02:05:58.00 GMT" "/" ".google.com" nil]))
+)
 (setq url-cookie-secure-storage
  'nil)
 

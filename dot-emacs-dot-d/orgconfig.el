@@ -1,9 +1,11 @@
-;; My customizations for org-mode and abbrev mode, under version
+; My customizations for org-mode and abbrev mode, under version
 ;; control
 ;;
 ;; Vincent A. Emanuele II
 ;; Created On: Wed Jul 27 13:56:43 EDT 2011
 ;;
+
+(setq inhibit-startup-screen t)
 
 ;; Repeat after me: Package managers in Emacs 24 are your friend
 ;; Ref:
@@ -14,6 +16,14 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (setq package-enable-at-startup nil)
+
+;; Emacs Helm customizations
+(require 'helm-config)
+(helm-mode 1)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
+(global-set-key (kbd "M-s o") 'helm-occur)
 
 ;; Startup edit-server for chrome-emacs integration
 (when (and (daemonp) (locate-library "edit-server"))
@@ -86,19 +96,10 @@
 ;;
 
 ;; load solarized color theme
-;; Sources:
-;;     http://www.nongnu.org/color-theme/ (color-theme.el)
-;;      Installation: http://www.emacswiki.org/cgi-bin/wiki/ColorTheme
-;;     https://github.com/altercation/solarized.git (solarize)
-
-(require 'color-theme)
-(require 'color-theme-solarized)
-(color-theme-initialize)
-
-;; set dark theme
-(color-theme-solarized-dark)
-;; set light theme
-;; (color-theme-solarized-light)
+;; 
+;;   This comes from the solarized-theme package from melpa
+(load-theme 'solarized-dark t)
+;; (load-theme 'solarized-light t)
 
 ;; Web development setup
 (require 'web-mode)
@@ -201,12 +202,12 @@
 
 ;; ... IDE-like environment setup
 ;; ...,,, IDO mode
-(require 'ido)
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(setq ido-create-new-buffer 'always)
-(setq ido-file-extensions-order '(".org" ".csv" ".txt" ".md" ".json" ".py" ".R" ".html" ".xml" ".el"))
-(ido-mode t)
+;; (require 'ido)
+;; (setq ido-enable-flex-matching t)
+;; (setq ido-everywhere t)
+;; (setq ido-create-new-buffer 'always)
+;; (setq ido-file-extensions-order '(".org" ".csv" ".txt" ".md" ".json" ".py" ".R" ".html" ".xml" ".el"))
+;; (ido-mode t)
 
 ;; ...,,, Fill Column Indicator
 (require 'fill-column-indicator)
@@ -437,12 +438,27 @@ is put in place to encourage good programming practice."
 (if (file-exists-p "~/.emacs.d/lisp/json.el")
 (load-file "~/.emacs.d/lisp/json.el"))
 
-;; Load htmlize package
-(if (file-exists-p "~/git/org-mode/contrib/lisp/htmlize.el")
-(load-file "~/git/org-mode/contrib/lisp/htmlize.el"))
+;; ;; Load htmlize package
+;; (if (file-exists-p "~/git/org-mode/contrib/lisp/htmlize.el")
+;; (load-file "~/git/org-mode/contrib/lisp/htmlize.el"))
+(require 'htmlize)
 
-;; Org mode setup below
+;; ;; Org mode setup below
 (require 'org-install)
+;; ... MobileOrg Setup to Sync with Dropbox
+;; http://mobileorg.ncogni.to/doc/getting-started/using-dropbox/
+
+;; ...,,, Cache org-mode refile targets for speedup
+(setq org-refile-use-cache t)
+
+
+;; ...,,, Set to the location of your Org files on your local system
+(setq org-directory "~/org")
+;; ...,,, Set to the name of the file where new notes will be stored
+(setq org-mobile-inbox-for-pull "~/org/flagged.org")
+;; ...,,, Set to <your Dropbox root directory>/MobileOrg.
+(setq org-mobile-directory "~/Personal Files/Dropbox/Apps/MobileOrg")
+
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
 (global-set-key "\C-cl" 'org-store-link)
@@ -456,13 +472,6 @@ is put in place to encourage good programming practice."
 (global-set-key "8" (quote org-capture))
 (global-set-key "9" (quote org-refile))
 
-;; ... Below only works for X windows, not in terminal
-;; (global-set-key (kbd "C-8") 'org-capture)
-;; (global-set-key (kbd "C-9") 'org-refile)
-;; (global-set-key (kbd "C-0") 'org-agenda)
-;; (global-set-key (kbd "C-8") 'org-capture)
-;; (global-set-key (kbd "C-9") 'org-refile)
-
 ;; Org-babel set up
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -474,37 +483,8 @@ is put in place to encourage good programming practice."
 ;; Turn on code highlighting in src blocks
 (setq org-src-fontify-natively t)
 
-;; Below are the old key bindings; these aren't convenient on a Macbook
-;; Air keyboard
-;; (global-set-key (kbd "<f12>") 'org-agenda)
-;; (global-set-key (kbd "<f8>") 'org-capture)
-;; (global-set-key (kbd "<f9>") 'org-refile)
-
-;; General TODO setup
-;; (setq org-todo-keywords
-;;       '( (sequence "TODO" "INPROGRESS" "WAITING" "|" "DONE" "DELEGATED" )
-;; 	 (sequence "|" "CANCELED" ) 
-;; 	 (sequence "|" "PHONE" )
-;; 	 (sequence "|" "EMAIL" )
-;; 	 (sequence "|" "READING" )
-;; 	 (sequence "|" "BREAK" )
-;; 	 ))
-
-;; (setq org-todo-keyword-faces
-;;       '(
-;;         ("TODO"  . (:foreground "firebrick2" :weight bold))
-;;         ("INPROGRESS"  . (:foreground "blue" :weight bold))
-;;         ("WAITING"  . (:foreground "orange" :weight bold))
-;;         ("DONE"  . (:foreground "forestgreen" :weight bold))
-;;         ("DELEGATED"  . (:foreground "dimgrey" :weight bold))
-;;         ("CANCELED"  . (:foreground "forestgreen" :weight bold))
-;;         ("PHONE"  . (:foreground "forestgreen" :weight bold))
-;;         ("EMAIL"  . (:foreground "forestgreen" :weight bold))
-;;         ("READING"  . (:foreground "forestgreen" :weight bold))
-;;         ("BREAK"  . (:foreground "forestgreen" :weight bold))
-;;         ))
 (setq org-todo-keywords
-      '( (sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "DELEGATED(l)" "CANCELED(c)" )
+      '( (sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w)" "|" "ANTITODO(a)" "DONE(d)" "DELEGATED(l)" "CANCELED(c)" )
 	 ))
 
 (setq org-todo-keyword-faces
@@ -512,6 +492,7 @@ is put in place to encourage good programming practice."
         ("TODO"  . (:foreground "firebrick2" :weight bold))
         ("INPROGRESS"  . (:foreground "blue" :weight bold))
         ("WAITING"  . (:foreground "orange" :weight bold))
+        ("ANTITODO"  . (:foreground "forestgreen" :weight bold))
         ("DONE"  . (:foreground "forestgreen" :weight bold))
         ("DELEGATED"  . (:foreground "dimgrey" :weight bold))
         ("CANCELED"  . (:foreground "forestgreen" :weight bold))
@@ -522,10 +503,23 @@ is put in place to encourage good programming practice."
 (setq org-log-done t)
 
 ;; Agenda-mode settings
-(custom-set-variables
- '(org-agenda-files '("~/org/" "~/org/wellcentive/" "~/org/retired_projects/")
-		    )
-)
+(setq org-agenda-files '("~/org" "~/org/wellcentive"))
+
+;; Updated 2016 agenda views based on new system
+(setq org-agenda-custom-commands
+      '(("paw" tags-todo "+priority+@work+PRIORITY=\"A\"")
+	("pah" tags-todo "+priority+@home+PRIORITY=\"A\"")
+	("pw" tags-todo "+priority+@work")
+	("ph" tags-todo "+priority+@home")
+	("wc" tags-todo "-@home-@work-@errand-@laptop")
+	("kt" todo "TODO")
+	("ki" todo "INPROGRESS")
+	("kw" todo "WAITING")
+	("kl" todo "DELEGATED")
+	("kd" todo "DONE")
+	("kc" todo "CANCELED")
+	))
+
 ;; (setq org-agenda-custom-commands
 ;;       '(("w" "Wellcentive Data Quality Agenda"
 ;; 	 ((org-agenda-list)
@@ -544,17 +538,20 @@ is put in place to encourage good programming practice."
 ;;               ((org-agenda-overriding-header "Tasks marked for completion at the CDC")))))))
 
 
-;; Column view setup to show effort estimates, etc
-;; Task Effort Clock_Summary
-(setq org-columns-default-format "%50ITEM(Task) %10Effort(Estimate){:} %10CLOCKSUM")
-(setq org-agenda-overriding-columns-format "%50ITEM(Task) %10Effort(Estimate){:} %10CLOCKSUM")
+;; ;; Column view setup to show effort estimates, etc
+;; ;; Task Effort Clock_Summary
+;; (setq org-columns-default-format "%50ITEM(Task) %10Effort(Estimate){:} %10CLOCKSUM")
+;; (setq org-agenda-overriding-columns-format "%50ITEM(Task) %10Effort(Estimate){:} %10CLOCKSUM")
 
 ;; Tags
-;; (setq org-tag-alist '(("home" . ?h)
-;; 		      ("laptop" . ?l)
-;; 		      ("errand" . ?e)
-;; 		      ("melissa" . ?m)
-;; 		      ) )
+(setq org-tag-alist '(("@home" . ?h)
+		      ("@laptop" . ?l)
+		      ("@work" . ?w)
+		      ("priority" . ?p)
+		      ("@errand" . ?e)
+		      ("groceries" . ?g)
+		      ("transition" . ?t)
+		      ))
 
 ;; org-capture setup
 ;; Basically using the setup from http://doc.norang.ca/org-mode.html#Capture
@@ -563,65 +560,63 @@ is put in place to encourage good programming practice."
 ;; removed the %a because the links to the original file were really
 ;; annoying me
 (setq org-capture-templates
-      (quote (("t" "General purpose todo" entry (file+headline "~/org/todo.org" "Tasks")
-               "* TODO %?\n%U\n  %i" :clock-in t :clock-resume t)
-	      ("w" "Wellcentive Workflow")
-              ("wt" "Wellcentive todo"
-              entry (file+headline "~/org/wellcentive/wellcentive.org" "Bucket")
-	       "* TODO %?\n%U\n  %i" :clock-in t :clock-resume t)
-              ("wn" "Wellcentive meeting note"
-              entry (file+headline "~/org/wellcentive/wellcentive.org" "Meeting Notes")
-               "* %? %U :note:\n  - Who: \n %i" :prepend t)
-              )))
+      '(("t" "Todo" entry (file+headline "~/org/inbox.org" "Inbox")
+             "* TODO %?\n%U\n  %i")
+	("n" "Wellcentive meeting note"
+	entry (file+headline "~/org/wellcentive/wellcentive.org" "Meeting Notes") "* %? %U :note:\n  - Who: \n %i" :prepend t)
+	))
+
+;; (setq org-capture-templates
+;;       (quote (("t" "General purpose todo" entry (file+headline "~/org/todo.org" "Tasks")
+;;                "* TODO %?\n%U\n  %i" :clock-in t :clock-resume t)
+;; 	      ("w" "Wellcentive Workflow")
+;;               ("wa" "Anti-todo documented"
+;;               entry (file+headline "~/org/wellcentive/wellcentive.org" "Log of Anti-TODO lists")
+;; 	       "* ANTITODO %?\n%U\n  %i" :clock-in t :clock-resume t)
+;;               ("wt" "Wellcentive todo"
+;;               entry (file+headline "~/org/wellcentive/wellcentive.org" "Bucket")
+;; 	       "* TODO %?\n%U\n  %i" :clock-in t :clock-resume t)
+;;               ("wn" "Wellcentive meeting note"
+;;               entry (file+headline "~/org/wellcentive/wellcentive.org" "Meeting Notes")
+;;                "* %? %U :note:\n  - Who: \n %i" :prepend t)
+;;               )))
+
+;; (setq org-capture-templates
+;;       (quote (("t" "General purpose todo" entry (file+headline "~/org/todo.org" "Tasks")
+;;                "* TODO %?\n%U\n  %i" :clock-in t :clock-resume t)
+;; 	      ("w" "Wellcentive Workflow")
+;;               ("wa" "Anti-todo documented"
+;;               entry (file+headline "~/org/wellcentive/wellcentive.org" "Log of Anti-TODO lists")
+;; 	       "* ANTITODO %?\n%U\n  %i" :clock-in t :clock-resume t)
+;;               ("wt" "Wellcentive todo"
+;;               entry (file+headline "~/org/wellcentive/wellcentive.org" "Bucket")
+;; 	       "* TODO %?\n%U\n  %i" :clock-in t :clock-resume t)
+;;               ("wn" "Wellcentive meeting note"
+;;               entry (file+headline "~/org/wellcentive/wellcentive.org" "Meeting Notes")
+;;                "* %? %U :note:\n  - Who: \n %i" :prepend t)
+;;               )))
 
 ;; Refile settings
 ; Targets include this file and any file contributing to the agenda - up to 2 levels deep
-(setq org-refile-targets (quote ((nil :maxlevel . 3)
-                                 (org-agenda-files :maxlevel . 3))))
-
-; Change these two to nil if using IDO
+(setq org-refile-targets (quote ((nil :maxlevel . 7)
+                                 (org-agenda-files :maxlevel . 7))))
 (setq org-refile-use-outline-path t)
-(setq org-outline-path-complete-in-steps t)
+
+; Change these two to nil if using IDO (?)
+(setq org-outline-path-complete-in-steps nil)
 
 ;; Clock-in/Clock-out settings and configuration
 ; Taken from http://doc.norang.ca/org-mode.html#ClockSetup with modifications
 
-;; Resume clocking tasks when emacs is restarted
-(org-clock-persistence-insinuate)
-
-;; Small windows on my Eee PC displays only the end of long lists which isn't very useful
-;;(setq org-clock-history-length 10)
-;; Resume clocking task on clock-in if the clock is open
-(setq org-clock-in-resume t)
-;; Change task to STARTED when clocking in
-;;(setq org-clock-in-switch-to-state 'bh/clock-in-to-started)
 ;; Separate drawers for clocking and logs
 (setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
-;; Save clock data and state changes and notes in the LOGBOOK drawer
-(setq org-clock-into-drawer t)
-;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
-(setq org-clock-out-remove-zero-time-clocks t)
-;; Clock out when moving task to a done state
-(setq org-clock-out-when-done t)
-;; Save the running clock and all clock history when exiting Emacs, load it on startup
-(setq org-clock-persist (quote history))
-;; Enable auto clock resolution for finding open clocks
-(setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
-;; Include current clocking task in clock reports
-(setq org-clock-report-include-clocking-task t)
-
-;; Remove empty LOGBOOK drawers on clock out
-(defun bh/remove-empty-drawer-on-clock-out ()
-  (interactive)
-  (save-excursion
-    (beginning-of-line 0)
-    (org-remove-empty-drawer-at "LOGBOOK" (point))))
-
-(add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
 
 ;; More logging
 (setq org-log-done (quote time))
 (setq org-log-into-drawer t)
+
+;; Kanban mode
+(require 'kanban)
 
 ;; ... Support for markdown 
 ;; Reference: http://jblevins.org/projects/markdown-mode/

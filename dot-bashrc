@@ -14,7 +14,8 @@ PATH=$HOME/bin:/opt/local/bin:/opt/local/sbin:$PATH
 
 # ...,,, Setting PATH for Python 2.7
 # Source: https://www.python.org/downloads/
-export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
+# export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
+export PATH="/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
 
 # Setting path for mysql
 # Source: http://www.oracle.com/us/products/mysql/mysqlcommunityserver/overview/index.html
@@ -79,8 +80,8 @@ export DYLD_LIBRARY_PATH="/usr/local/mysql/lib"
 # virtualenvwrapper setup
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Projects
-export VIRTUALENVWRAPPER_SCRIPT=/Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper.sh
-source /Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper_lazy.sh
+# export VIRTUALENVWRAPPER_SCRIPT=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper.sh
+# source /opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper_lazy.sh
 
 # set JAVA_HOME
 ## Note, if java 1.7 is not installed, will fail 'silently'
